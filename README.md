@@ -1,19 +1,24 @@
-# gray-resources
+<p align="center">
+  <img src="assets/gray-logo.svg" alt="gray" width="96">
+</p>
+<h1 align="center">gray-resources</h1>
+<p align="center">Pin files as always-on context for every request.</p>
+<p align="center">
+  <a href="https://github.com/vstaln/gray-resources/blob/main/LICENSE"><img alt="MIT License" src="https://img.shields.io/badge/license-MIT-blue.svg"></a>
+  <img alt="gray plugin" src="https://img.shields.io/badge/gray-plugin-7aa2f7.svg">
+  <img alt="rust" src="https://img.shields.io/badge/built%20with-rust-orange.svg">
+</p>
 
-Pin files as always-on context: every model request carries a synthetic user
-message with the contents of your pinned files. Port of pi's
-`dynamic-resources` extension.
-
-A sidecar plugin for [gray](https://github.com/vstaln/gray), scaffolded by
-[gray-account](https://github.com/vstaln/gray-account).
+Keep a registry of pinned files and inject their contents into the model's
+context automatically.
 
 ## What it does
 
 A registry at `~/.gray/resources/list.json` (`{"files": ["path", …]}`,
-`$GRAY_HOME` honored) lists pinned files — entries may be absolute,
+`$GRAY_HOME` honored) lists pinned files. Entries may be absolute,
 `~`-relative, or session-cwd-relative.
 
-On every `context/build` (protocol 2.0) the sidecar prepends ONE synthetic
+On every `context/build` (protocol 2.0), the sidecar prepends one synthetic
 user message to the outbound list:
 
 ```
@@ -26,12 +31,13 @@ The following files were pinned as resources:
 <file contents>
 ```
 
-24 KiB total cap; binary files are skipped (and marked), unreadable paths
-are marked. Empty registry → `{}` (the outbound list is kept as-is).
+The combined content is capped at 24 KiB. Binary files are skipped and
+marked; unreadable paths are marked. An empty registry returns `{}` and
+leaves the outbound list unchanged.
 
-`/resources add <path>` pins a file (dedupes, expands `~`);
-`/resources rm <path>` unpins; bare `/resources` lists the registry with
-resolved paths and missing-file markers.
+`/resources add <path>` pins a file (deduped, `~` expanded);
+`/resources rm <path>` unpins it; bare `/resources` lists resolved paths and
+missing-file markers.
 
 ## Wire methods
 
@@ -54,3 +60,7 @@ gray account publish    # check → build → release → publish to the gray re
 
 Bump `version` in `Cargo.toml` before each `publish`; the registry refuses to
 republish a version.
+
+---
+Part of the [gray](https://github.com/vstaln/gray) plugin ecosystem —
+the open-source AI agent harness. <https://gray.alignment.id>

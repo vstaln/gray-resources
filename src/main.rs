@@ -1,11 +1,10 @@
 //! gray-resources — pin files as always-on context.
 //!
-//! Port of pi's `dynamic-resources` extension, adapted to the gray wire: a
-//! registry at `<gray-home>/resources/list.json` (`{"files":[…]}`, entries
-//! may be absolute or session-cwd-relative). On every `context/build` the
-//! sidecar prepends ONE synthetic user message —
-//! `The following files were pinned as resources:` plus `### path` sections —
-//! to the outbound messages (24 KiB cap, binaries skipped).
+//! A registry at `<gray-home>/resources/list.json` (`{"files":[…]}`) may
+//! hold absolute or session-cwd-relative paths. On every `context/build` the
+//! sidecar prepends one synthetic user message — `The following files were
+//! pinned as resources:` plus `### path` sections — to the outbound
+//! messages (24 KiB cap, binaries skipped).
 //! `/resources add <path>` · `/resources rm <path>` · `/resources` list.
 
 use std::io::{BufRead, Write};
