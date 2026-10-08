@@ -1,0 +1,17 @@
+[package]
+name = "gray-resources"
+version = "0.1.0"
+edition = "2024"
+rust-version = "1.91"
+license = "MIT"
+description = "Pin files as always-on context: synthetic user message per turn from a ~/.gray/resources registry (port of pi's dynamic-resources)."
+
+[[bin]]
+name = "gray-resources"
+path = "src/main.rs"
+
+[dependencies]
+serde_json = "1"
+
+[profile.release]
+strip = true
