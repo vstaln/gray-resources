@@ -23,7 +23,7 @@ fn manifest() -> Value {
         "version": env!("CARGO_PKG_VERSION"),
         "protocol": "2.0",
         "tools": [],
-        "description": "pin",
+        "description": "pin files as always-on context",
         "commands": ["/resources"],
         "hooks": ["context/build"],
     })
