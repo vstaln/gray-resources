@@ -25,6 +25,7 @@ fn manifest() -> Value {
         "tools": [],
         "description": "pin files as always-on context",
         "commands": ["/resources"],
+        "command_descriptions": {"/resources": "pin files as always-on context"},
         "hooks": ["context/build"],
     })
 }
