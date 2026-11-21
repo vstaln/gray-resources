@@ -251,7 +251,9 @@ fn main() -> std::io::Result<()> {
     let mut stdout = std::io::stdout();
     for line in stdin.lock().lines() {
         let line = line?;
-        let Ok(req) = serde_json::from_str::<Value>(&line) else { continue };
+        let Ok(req) = serde_json::from_str::<Value>(&line) else {
+            continue;
+        };
         let (reply, exit) = handle(&req);
         if let Some(reply) = reply {
             writeln!(stdout, "{reply}")?;
@@ -269,7 +271,9 @@ mod tests {
     use super::*;
 
     fn call(method: &str, params: Value) -> Value {
-        handle(&json!({ "id": 1, "method": method, "params": params })).0.unwrap()
+        handle(&json!({ "id": 1, "method": method, "params": params }))
+            .0
+            .unwrap()
     }
 
     /// A fresh temp dir that removes itself on drop.
@@ -385,7 +389,10 @@ mod tests {
                 "command/run",
                 json!({ "name": "/resources", "argv": ["add", arg],
                         "session": { "cwd": dir.0 } }),
-            )["result"]["text"].as_str().unwrap().to_string()
+            )["result"]["text"]
+                .as_str()
+                .unwrap()
+                .to_string()
         };
         assert!(add("f.md").contains("1 total"));
         assert!(add("./f.md").contains("already pinned"));
