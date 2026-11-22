@@ -67,10 +67,10 @@ fn save_list(files: &[String]) -> std::io::Result<()> {
 
 /// Expand a leading `~` / `~/…` against `$HOME`.
 fn expand_tilde(p: &str) -> String {
-    if p == "~" || p.starts_with("~/") {
-        if let Some(home) = std::env::var_os("HOME") {
-            return format!("{}{}", Path::new(&home).display(), &p[1..]);
-        }
+    if (p == "~" || p.starts_with("~/"))
+        && let Some(home) = std::env::var_os("HOME")
+    {
+        return format!("{}{}", Path::new(&home).display(), &p[1..]);
     }
     p.to_string()
 }
